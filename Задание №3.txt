@@ -1,0 +1,49 @@
+-- create
+CREATE TABLE Product (
+  Id int PRIMARY KEY,
+  name varchar(15)
+);
+
+CREATE TABLE Category (
+  Id int PRIMARY KEY,
+  name varchar(15)
+);
+
+CREATE TABLE ProductCategory(
+  PRIMARY KEY (productId, categoryId),
+  productId int,
+  categoryId int,
+  
+  FOREIGN KEY (productId) REFERENCES Product(Id),
+  FOREIGN KEY (categoryId) REFERENCES Category(Id)
+  
+);
+
+-- insert
+INSERT INTO Product(Id,name) VALUES (1, 'Milk');
+INSERT INTO Product(Id,name) VALUES (2, 'Kefir');
+INSERT INTO Product(Id,name) VALUES (3, 'Mincemeat');
+INSERT INTO Product(Id,name) VALUES (4, 'Sausage');
+INSERT INTO Product(Id,name) VALUES (5, 'Yogurt');
+INSERT INTO Product(Id,name) VALUES (6, 'Icecream');
+INSERT INTO Product(Id,name) VALUES (7, 'Potato');
+
+INSERT INTO Category(Id,name) VALUES (1, 'Milk');
+INSERT INTO Category(Id,name) VALUES (2, 'Meat');
+INSERT INTO Category(Id,name) VALUES (3, 'Dessert');
+
+INSERT INTO ProductCategory(productId, categoryId) VALUES (1, 1);
+INSERT INTO ProductCategory(productId, categoryId) VALUES (2, 1);
+INSERT INTO ProductCategory(productId, categoryId) VALUES (3, 2);
+INSERT INTO ProductCategory(productId, categoryId) VALUES (4, 2);
+INSERT INTO ProductCategory(productId, categoryId) VALUES (5, 1);
+INSERT INTO ProductCategory(productId, categoryId) VALUES (5, 3);
+INSERT INTO ProductCategory(productId, categoryId) VALUES (6, 1);
+INSERT INTO ProductCategory(productId, categoryId) VALUES (6, 3);
+
+
+-- fetch 
+SELECT p.name, c.name
+FROM Product AS p
+LEFT JOIN ProductCategory AS pc ON p.Id = pc.productId
+LEFT JOIN Category AS c ON c.Id = pc.categoryId;
